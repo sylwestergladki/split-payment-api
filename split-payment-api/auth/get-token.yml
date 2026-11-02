@@ -1,0 +1,38 @@
+info:
+  name: get-token
+  type: http
+  seq: 1
+
+http:
+  method: POST
+  url: "{{keycloakUrl}}/realms/{{realm}}/protocol/openid-connect/token"
+  headers:
+    - name: Content-Type
+      value: application/x-www-form-urlencoded
+  body:
+    type: form-urlencoded
+    data:
+      - name: client_id
+        value: "{{clientId}}"
+      - name: grant_type
+        value: password
+      - name: username
+        value: "{{username}}"
+      - name: password
+        value: "{{password}}"
+  auth: inherit
+
+runtime:
+  scripts:
+    - type: tests
+      code: |-
+        const response = res.getBody();
+
+        bru.setEnvVar("accessToken", response.access_token);
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false
