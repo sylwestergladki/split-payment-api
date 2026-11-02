@@ -52,6 +52,24 @@ public class AppUser {
         );
     }
 
+    public static AppUser reconstitute(
+            UserId id,
+            String keycloakSubject,
+            String email,
+            String displayName,
+            Instant createdAt,
+            Instant updatedAt
+    ) {
+        return new AppUser(
+                id,
+                keycloakSubject,
+                email,
+                displayName,
+                createdAt,
+                updatedAt
+        );
+    }
+
     public void updateProfile(
             String email,
             String displayName

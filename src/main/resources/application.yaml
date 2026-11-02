@@ -6,6 +6,12 @@ spring:
     username: ${DB_USERNAME:splitpayment}
     password: ${DB_PASSWORD:local_splitpayment_password}
 
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${KEYCLOAK_ISSUER_URI:http://localhost:8081/realms/splitpayment}
+
   jpa:
     hibernate:
       ddl-auto: validate
