@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: split-payment-api
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/splitpayment}
+    username: ${DB_USERNAME:splitpayment}
+    password: ${DB_PASSWORD:local_splitpayment_password}
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+
+  flyway:
+    enabled: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
