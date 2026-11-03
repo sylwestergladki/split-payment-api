@@ -25,6 +25,13 @@ public class SecurityConfig {
                 .oauth2ResourceServer(oauth2 ->
                         oauth2.jwt(Customizer.withDefaults())
                 )
+                .exceptionHandling(exceptions -> exceptions
+                        .authenticationEntryPoint(
+                                new org.springframework.security.web.authentication.HttpStatusEntryPoint(
+                                        org.springframework.http.HttpStatus.UNAUTHORIZED
+                                )
+                        )
+                )
                 .build();
     }
 }
