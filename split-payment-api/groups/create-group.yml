@@ -1,0 +1,24 @@
+info:
+  name: create-group
+  type: http
+  seq: 1
+
+http:
+  method: POST
+  url: "{{baseUrl}}/api/groups"
+  body:
+    type: json
+    data: |-
+      {
+        "name": "Mountain trip"
+      }
+  auth:
+    type: bearer
+    token: "{{accessToken}}"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false
