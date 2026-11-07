@@ -1,0 +1,40 @@
+info:
+  name: create-expense
+  type: http
+  seq: 1
+
+http:
+  method: POST
+  url: "{{baseUrl}}/api/groups/{{groupId}}/expenses"
+  body:
+    type: json
+    data: |-
+      {
+        "description": "Dinner",
+        "amount": 100.00,
+        "paidBy": "{{userId}}",
+        "participants": [
+          "{{userId}}"
+        ]
+      }
+  auth:
+    type: bearer
+    token: "{{accessToken}}"
+
+runtime:
+  scripts:
+    - type: after-response
+      code: |-
+        const response = res.getBody();
+
+        if (res.getStatus() === 201 && response?.id) {
+            bru.setEnvVar("expenseId", response.id);
+            console.log("Saved expenseId:", response.id);
+        }
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

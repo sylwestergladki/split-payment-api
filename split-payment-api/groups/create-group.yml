@@ -16,6 +16,19 @@ http:
     type: bearer
     token: "{{accessToken}}"
 
+runtime:
+  scripts:
+    - type: after-response
+      code: |-
+        const response = res.getBody();
+
+        if (res.getStatus() === 201 && response?.id) {
+            bru.setEnvVar("groupId", response.id);
+            console.log("Saved groupId:", response.id);
+        } else {
+            console.log("Group was not created or response has no id");
+        }
+
 settings:
   encodeUrl: true
   timeout: 0

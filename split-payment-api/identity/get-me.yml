@@ -1,0 +1,31 @@
+info:
+  name: get-me
+  type: http
+  seq: 2
+
+http:
+  method: GET
+  url: "{{baseUrl}}/api/me"
+  auth:
+    type: bearer
+    token: "{{accessToken}}"
+
+runtime:
+  scripts:
+    - type: after-response
+      code: |-
+        const response = res.getBody();
+
+        if (res.getStatus() === 200 && response?.id) {
+            bru.setEnvVar("userId", response.id);
+            console.log("userId:", response.id);
+        } else {
+            console.log("User was not found or response has no id");
+        }
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false
