@@ -9,4 +9,6 @@ public interface AppUserRepository {
     );
 
     AppUser save(AppUser user);
+
+    boolean existsById(UserId userId);
 }

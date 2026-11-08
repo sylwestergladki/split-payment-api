@@ -3,7 +3,7 @@ package pl.sylwestergladki.split_payment_api.groups.application;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pl.sylwestergladki.split_payment_api.groups.domain.Group;
-import pl.sylwestergladki.split_payment_api.groups.domain.GroupRepository;
+import pl.sylwestergladki.split_payment_api.groups.domain.repository.GroupRepository;
 import pl.sylwestergladki.split_payment_api.identity.domain.UserId;
 
 import java.util.UUID;

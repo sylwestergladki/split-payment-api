@@ -1,0 +1,29 @@
+info:
+  name: add-group-member
+  type: http
+  seq: 5
+
+http:
+  method: POST
+  url: "{{baseUrl}}/api/groups/{{groupId}}/members"
+  body:
+    type: json
+    data: "
+
+      {
+
+      \  \"userId\": \"{{newMemberId}}\"
+
+      }
+
+      \  "
+  auth:
+    type: bearer
+    token: "{{accessToken}}"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

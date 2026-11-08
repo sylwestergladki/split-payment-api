@@ -7,7 +7,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pl.sylwestergladki.split_payment_api.groups.domain.Group;
 import pl.sylwestergladki.split_payment_api.groups.domain.GroupId;
-import pl.sylwestergladki.split_payment_api.groups.domain.GroupRepository;
+import pl.sylwestergladki.split_payment_api.groups.domain.repository.GroupRepository;
 import pl.sylwestergladki.split_payment_api.groups.domain.exception.GroupNotFoundException;
 import pl.sylwestergladki.split_payment_api.identity.domain.UserId;
 

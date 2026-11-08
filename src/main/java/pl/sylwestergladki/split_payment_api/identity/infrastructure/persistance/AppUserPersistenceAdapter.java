@@ -38,6 +38,11 @@ public class AppUserPersistenceAdapter
         return toDomain(saved);
     }
 
+    @Override
+    public boolean existsById(UserId userId) {
+        return jpaRepository.existsById(userId.value());
+    }
+
     private AppUser toDomain(AppUserEntity entity) {
         return AppUser.reconstitute(
                 new UserId(entity.getId()),

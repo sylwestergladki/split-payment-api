@@ -1,6 +1,7 @@
 package pl.sylwestergladki.split_payment_api.groups.domain;
 
 
+import pl.sylwestergladki.split_payment_api.groups.domain.model.GroupMember;
 import pl.sylwestergladki.split_payment_api.identity.domain.UserId;
 
 import java.time.Instant;

@@ -1,4 +1,4 @@
-package pl.sylwestergladki.split_payment_api.groups.domain;
+package pl.sylwestergladki.split_payment_api.groups.domain.model;
 
 import pl.sylwestergladki.split_payment_api.identity.domain.UserId;
 

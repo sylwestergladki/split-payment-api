@@ -24,7 +24,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @AutoConfigureTestDatabase(
         replace = AutoConfigureTestDatabase.Replace.NONE
 )
-class GroupPersistenceAdapterTest {
+class GroupPersistenceAdapterIT {
 
     @Autowired
     private AppUserPersistenceAdapter userAdapter;
@@ -121,5 +121,88 @@ class GroupPersistenceAdapterTest {
                         "Dinner"
                 );
     }
+
+    @Test
+    void shouldAddMemberToExistingGroup() {
+        // given
+        AppUser userA = userAdapter.save(
+                AppUser.register(
+                        "keycloak-update-user-a",
+                        "update-a@example.com",
+                        "User A"
+                )
+        );
+
+        AppUser userB = userAdapter.save(
+                AppUser.register(
+                        "keycloak-update-user-b",
+                        "update-b@example.com",
+                        "User B"
+                )
+        );
+
+        Group group = Group.create("Mountain trip", userA.id());
+
+        Group savedGroup = groupAdapter.save(group);
+
+        Group existingGroup = groupAdapter.findById(savedGroup.id())
+                .orElseThrow();
+
+        assertThat(existingGroup.members()).hasSize(1);
+
+        // when
+        existingGroup.addMember(userB.id());
+
+        groupAdapter.save(existingGroup);
+
+        // then
+        Group updatedGroup = groupAdapter.findById(savedGroup.id())
+                .orElseThrow();
+
+        assertThat(updatedGroup.members()).hasSize(2);
+        assertThat(updatedGroup.hasMember(userA.id())).isTrue();
+        assertThat(updatedGroup.hasMember(userB.id())).isTrue();
+    }
+
+    @Test
+    void shouldNotDuplicateMembersWhenSavingAgain() {
+        // given
+        AppUser userA = userAdapter.save(
+                AppUser.register(
+                        "keycloak-duplicate-user-a",
+                        "duplicate-a@example.com",
+                        "User A"
+                )
+        );
+
+        AppUser userB = userAdapter.save(
+                AppUser.register(
+                        "keycloak-duplicate-user-b",
+                        "duplicate-b@example.com",
+                        "User B"
+                )
+        );
+
+        Group group = Group.create("Weekend trip", userA.id());
+        group.addMember(userB.id());
+
+        Group savedGroup = groupAdapter.save(group);
+
+        // when
+        Group loadedGroup = groupAdapter.findById(savedGroup.id())
+                .orElseThrow();
+
+        groupAdapter.save(loadedGroup);
+        groupAdapter.save(loadedGroup);
+
+        // then
+        Group found = groupAdapter.findById(savedGroup.id())
+                .orElseThrow();
+
+        assertThat(found.members()).hasSize(2);
+        assertThat(found.hasMember(userA.id())).isTrue();
+        assertThat(found.hasMember(userB.id())).isTrue();
+    }
+
 
 }
