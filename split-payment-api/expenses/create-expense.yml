@@ -14,7 +14,7 @@ http:
         "amount": 100.00,
         "paidBy": "{{userId}}",
         "participants": [
-          "{{userId}}"
+          "{{userId}}","{{newMemberId}}"
         ]
       }
   auth:

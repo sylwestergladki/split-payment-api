@@ -6,7 +6,16 @@ info:
 http:
   method: POST
   url: "{{baseUrl}}/api/groups/{{groupId}}/settlements"
-  auth: inherit
+  body:
+    type: json
+    data: |-
+      {
+        "toUserId": "{{newMemberId}}",
+        "amount": 30.00
+      }
+  auth:
+    type: bearer
+    token: "{{accessToken}}"
 
 settings:
   encodeUrl: true

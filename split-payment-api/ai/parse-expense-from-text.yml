@@ -1,0 +1,24 @@
+info:
+  name: parse-expense-from-text
+  type: http
+  seq: 1
+
+http:
+  method: POST
+  url: "{{baseUrl}}/api/groups/{{groupId}}/expenses/parse"
+  body:
+    type: json
+    data: |-
+      {
+        "text": "Zapłaciłem 180 zł za kolację dla mnie i Jana"
+      }
+  auth:
+    type: bearer
+    token: "{{accessToken}}"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

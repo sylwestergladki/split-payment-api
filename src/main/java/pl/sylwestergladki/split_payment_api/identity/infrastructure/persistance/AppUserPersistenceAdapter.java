@@ -6,6 +6,7 @@ import pl.sylwestergladki.split_payment_api.identity.domain.AppUserRepository;
 import pl.sylwestergladki.split_payment_api.identity.domain.UserId;
 
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -36,6 +37,17 @@ public class AppUserPersistenceAdapter
         AppUserEntity saved = jpaRepository.save(entity);
 
         return toDomain(saved);
+    }
+
+    @Override
+    public List<AppUser> findAllByIds(List<UserId> userIds) {
+        var ids = userIds.stream()
+                .map(UserId::value)
+                .toList();
+
+        return jpaRepository.findAllById(ids).stream()
+                .map(this::toDomain)
+                .toList();
     }
 
     @Override
