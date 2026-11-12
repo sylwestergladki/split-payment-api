@@ -11,8 +11,8 @@ public record ParseExpenseResponse(
         String description,
         BigDecimal amount,
         String currency,
-        UUID paidByUserId,
-        List<UUID> participantUserIds
+        UUID paidBy,
+        List<UUID> participants
 ) {
 
     public static ParseExpenseResponse fromResolvedExpense(
