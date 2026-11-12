@@ -10,7 +10,7 @@ http:
     type: json
     data: |-
       {
-        "text": "Zapłaciłem 180 zł za kolację dla mnie i Jana"
+        "text": "I paid 200 zł for mine and Jan dinner"
       }
   auth:
     type: bearer
